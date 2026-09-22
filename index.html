@@ -3,57 +3,749 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bearly Invested — the stock market, explained by a bear</title>
-  <meta name="description" content="Bearly Invested is a friendly, beginner-focused stock market app. A bear mascot explains the market in plain English." />
+  <title>Bearly Invested — Learn the Stock Market Like a Game</title>
+  <meta name="description" content="Bearly Invested is a free app that teaches beginners how the stock market works through a daily 5-question quiz, real S&P 500 data explained in plain English, and XP, streaks, and levels — the Duolingo-style way to learn investing basics without financial advice or real money at risk." />
   <meta name="robots" content="index,follow" />
-  <!-- Open Graph / social preview — fill in a real preview image when the landing page ships -->
-  <meta property="og:title" content="Bearly Invested" />
-  <meta property="og:description" content="The stock market, explained by a bear." />
+  <link rel="canonical" href="https://bearlyinvested.app/" />
+  <link rel="icon" href="assets/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/icon.png" />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:title" content="Bearly Invested — Learn the Stock Market Like a Game" />
+  <meta property="og:description" content="A free, gamified app that teaches beginners how the stock market works — daily quizzes, real S&P 500 data explained in plain English, XP, streaks, and levels. No financial advice, no real money at risk." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bearlyinvested.app/" />
-  <style>
-    :root { color-scheme: light dark; --green: #16a34a; }
-    * { box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      display: flex; min-height: 100vh; margin: 0; align-items: center; justify-content: center;
-      color: #1a1a1a; background: #ffffff; text-align: center; padding: 24px;
+  <meta property="og:image" content="https://bearlyinvested.app/assets/icon.png" />
+  <meta property="og:site_name" content="Bearly Invested" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bearly Invested — Learn the Stock Market Like a Game" />
+  <meta name="twitter:description" content="A free, gamified app that teaches beginners how the stock market works — daily quizzes, real S&P 500 data explained in plain English, XP, streaks, and levels." />
+  <meta name="twitter:image" content="https://bearlyinvested.app/assets/icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Bearly Invested",
+    "url": "https://bearlyinvested.app/",
+    "description": "Bearly Invested teaches beginners how the stock market works through a daily 5-question quiz, real S&P 500 market data explained in plain English by a bear mascot, and an XP/streak/level progression system. It is an educational app, not a trading platform or financial adviser, and provides no financial advice.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "iOS, Android",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free with an optional Pro subscription for advanced market data and analysis."
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Bearly Invested",
+      "url": "https://bearlyinvested.app/"
     }
-    main { max-width: 520px; }
-    .logo { font-size: 44px; margin-bottom: 12px; }
-    .brand { font-weight: 700; font-size: 30px; margin-bottom: 8px; }
-    .brand span { color: var(--green); }
-    .tagline { color: #666; font-size: 17px; margin: 4px 0 24px; }
-    .links a { color: var(--green); margin: 0 10px; font-weight: 600; text-decoration: none; }
-    .links a:hover { text-decoration: underline; }
-    footer { margin-top: 40px; font-size: 13px; color: #999; }
-    @media (prefers-color-scheme: dark) {
-      body { color: #e6e6e6; background: #0f0f10; }
-      .tagline { color: #9a9a9a; }
-      footer { color: #6a6a6a; }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Bearly Invested",
+    "url": "https://bearlyinvested.app/",
+    "logo": "https://bearlyinvested.app/assets/icon.png",
+    "description": "Bearly Invested builds educational, beginner-focused stock market apps that make learning how markets work approachable through gamified daily lessons.",
+    "sameAs": []
+  }
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light;
+      /* palette — mirrors apps/mobile/theme/tokens.js */
+      --green: #37b24d;
+      --green-tint2: #5fc171;
+      --green-tint8: #d7f0db;
+      --green-shade4: #216b2e;
+      --green-shade6: #16471f;
+      --green-shade7: #103517;
+      --green-shade8: #0b240f;
+      --teal: #11998e;
+      --hero-green: #38ef7d;
+      --ink: #1a1a1a;
+      --grey: #888888;
+      --grey-light: #c4c4c4;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --border-faint: #eeeeee;
+      --border-green: #d0e6d4;
+      --surface-subtle: #fafafa;
+      --red: #e74c3c;
+      --streak-flame: #f08c00;
+
+      /* typography scale — apps/mobile/theme/tokens.js fontSize */
+      --fs-caption: 12px;
+      --fs-body: 15px;
+      --fs-lg: 18px;
+      --fs-xl: 20px;
+      --fs-h2: 22px;
+      --fs-h1: 28px;
+      --fs-h1-compact: 26px;
+      --fs-display: 34px;
+      --fs-hero: 44px;
+
+      /* spacing scale */
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 12px;
+      --sp-lg: 16px;
+      --sp-xl: 24px;
+      --sp-xxl: 32px;
+      --sp-xxxl: 48px;
+
+      /* radius scale */
+      --r-input: 12px;
+      --r-card: 16px;
+      --r-pill: 20px;
+      --r-full: 9999px;
+
+      --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-bear-card: 0px 10px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.5;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--sp-xl);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .settle {
+      opacity: 0;
+      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* ---------- nav ---------- */
+    header.nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--sp-md) var(--sp-xl);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .brand img { height: 17px; width: auto; }
+
+    /* ---------- hero ---------- */
+    .hero {
+      background: linear-gradient(to right, var(--teal), var(--hero-green));
+      padding: 72px var(--sp-xl) 64px;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--sp-xxxl);
+    }
+    .hero-copy { flex: 1 1 400px; }
+    .hero h1 {
+      font-size: 32px;
+      line-height: 1.25;
+      font-weight: 700;
+      color: var(--white);
+      margin: 0 0 var(--sp-lg);
+    }
+    .hero p.lead {
+      font-size: var(--fs-lg);
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.92);
+      margin: 0 0 var(--sp-xxl);
+      max-width: 46ch;
+    }
+    .hero-ctas { display: flex; gap: var(--sp-md); flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green-shade7);
+      color: var(--white);
+      font-weight: 700;
+      font-size: var(--fs-body);
+      padding: var(--sp-md) var(--sp-xl);
+      border-radius: var(--r-full);
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-card);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--green-shade7);
+      font-weight: 700;
+      font-size: var(--fs-body);
+      padding: var(--sp-md) var(--sp-xl);
+      border-radius: var(--r-full);
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ---------- hero visual: a 1:1 recreation of apps/mobile MarketCard ---------- */
+    .hero-visual { flex: 1 1 300px; max-width: 320px; }
+    .market-card-wrap {
+      width: 100%;
+      border-radius: var(--r-pill);
+      box-shadow: var(--shadow-bear-card);
+    }
+    .market-card-body {
+      background: rgba(255, 255, 255, 0.85);
+      border-top-left-radius: var(--r-pill);
+      border-top-right-radius: var(--r-pill);
+      padding: var(--sp-md) var(--sp-lg);
+    }
+    .market-card-row { display: flex; align-items: center; }
+    .market-card-row img.flag { width: 32px; height: 32px; }
+    .market-card-name {
+      font-weight: 700;
+      font-size: var(--fs-xl);
+      color: var(--green-shade7);
+      margin-left: var(--sp-sm);
+    }
+    .market-card-change {
+      display: flex;
+      align-items: center;
+      margin-top: var(--sp-xs);
+    }
+    .market-card-change .caret { font-size: 18px; color: var(--green); font-weight: 700; line-height: 1; }
+    .market-card-change .pct {
+      font-size: var(--fs-h1);
+      font-weight: 700;
+      color: var(--green);
+      margin-left: var(--sp-xs);
+    }
+    .market-card-caption { font-size: 11px; color: var(--grey); margin-top: var(--sp-sm); }
+    .market-card-caption + .market-card-caption { margin-top: var(--sp-xs); }
+    .market-card-accent { width: 100%; height: 3px; background: var(--green); }
+    .market-card-bear {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-sm);
+      background: var(--ink);
+      color: var(--white);
+      font-weight: 600;
+      font-size: var(--fs-caption);
+      padding: var(--sp-md);
+      border-bottom-left-radius: var(--r-pill);
+      border-bottom-right-radius: var(--r-pill);
+    }
+    .market-card-bear img { width: 16px; height: 16px; }
+    .market-card-bear .caret-right { font-size: 12px; }
+
+    .hero-subcards { display: flex; gap: var(--sp-md); margin-top: var(--sp-md); }
+    .hero-subcards .glass-card {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--r-card);
+      padding: var(--sp-lg) var(--sp-md);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      overflow: visible;
+    }
+    .hero-subcards .flame-icon { color: var(--streak-flame, #f08c00); margin-bottom: 2px; }
+    .hero-subcards .streak-num { font-size: var(--fs-h1-compact); font-weight: 700; color: var(--green-shade7); line-height: 1; }
+    .hero-subcards .streak-label,
+    .hero-subcards .score-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--grey);
+      line-height: 1.3;
+    }
+    .hero-subcards .score { font-size: var(--fs-lg); font-weight: 700; color: var(--green-shade4); line-height: 1.3; }
+    .hero-subcards .xp { font-size: 11px; color: var(--grey); line-height: 1.3; }
+
+    /* ---------- confetti burst on the quiz result card ---------- */
+    .confetti-piece {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 6px;
+      height: 10px;
+      border-radius: 2px;
+      pointer-events: none;
+      opacity: 0;
+      animation: confetti-burst 950ms ease-out forwards;
+    }
+    @keyframes confetti-burst {
+      0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0.5); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .confetti-piece { animation: none; display: none; }
+    }
+
+    /* ---------- feature rows ---------- */
+    .features { padding: 80px 0; }
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-xxxl);
+      padding: var(--sp-xxl) 0;
+      flex-wrap: wrap;
+    }
+    .feature-row:nth-child(even) { flex-direction: row-reverse; }
+    .feature-copy { flex: 1 1 380px; }
+    .feature-copy .kicker {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin: 0 0 var(--sp-sm);
+    }
+    .feature-copy h2 {
+      font-size: var(--fs-h1);
+      font-weight: 700;
+      color: var(--green-shade6);
+      margin: 0 0 var(--sp-md);
+    }
+    .feature-copy p {
+      font-size: var(--fs-body);
+      line-height: 1.65;
+      color: #3a3a3a;
+      margin: 0;
+      max-width: 48ch;
+    }
+    .feature-visual {
+      flex: 1 1 280px;
+      display: flex;
+      justify-content: center;
+    }
+    .feature-visual img {
+      width: 264px;
+      height: 264px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.12));
+    }
+
+    /* ---------- stats band ---------- */
+    .stats {
+      background: var(--white);
+      padding: 72px var(--sp-xl);
+      text-align: center;
+    }
+    .stats h2 {
+      color: var(--green-shade6);
+      font-size: var(--fs-h2);
+      font-weight: 700;
+      margin: 0 0 var(--sp-xxl);
+    }
+    .stats-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: var(--sp-xxl);
+    }
+    .stat { flex: 1 1 200px; }
+    .stat .num { font-size: var(--fs-display); font-weight: 700; color: var(--green); }
+    .stat .num.placeholder { color: var(--grey-light); }
+    .stat .lbl { font-size: var(--fs-body); color: var(--grey); margin-top: var(--sp-xs); }
+
+    /* ---------- disclaimer strip ---------- */
+    /* Same dark ground as the footer below it — together they read as one
+       continuous closing section rather than a jarring handoff. */
+    .disclaimer-strip {
+      background: var(--green-shade8);
+      width: 100%;
+      padding: var(--sp-xxl) var(--sp-xl);
+      text-align: center;
+    }
+    .disclaimer-strip .inner {
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: var(--fs-caption);
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+    }
+    .disclaimer-strip strong { color: var(--white); }
+    .disclaimer-strip a { color: var(--hero-green); }
+
+    /* ---------- footer ---------- */
+    footer.site-footer {
+      background: var(--green-shade8);
+      padding: var(--sp-xl) var(--sp-xl) var(--sp-xxl);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-xl);
+      text-align: center;
+    }
+    footer.site-footer .brand img { height: 15px; width: auto; opacity: 0.95; }
+    footer.site-footer .foot-links {
+      display: flex;
+      gap: var(--sp-xl);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    footer.site-footer .foot-links a { color: rgba(255, 255, 255, 0.7); font-size: var(--fs-caption); }
+    footer.site-footer .foot-links a:hover { color: var(--white); }
+    footer.site-footer .foot-social { display: flex; gap: var(--sp-md); }
+    footer.site-footer .foot-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--r-full);
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.8);
+    }
+    footer.site-footer .foot-social a:hover { background: var(--green-shade4); color: var(--white); }
+    footer.site-footer .foot-divider {
+      width: 100%;
+      max-width: 400px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    footer.site-footer .copyright { font-size: var(--fs-caption); color: rgba(255, 255, 255, 0.4); }
+
+    /* ---------- responsive ---------- */
+    /* Side gutters only ever grow on smaller screens, never shrink below the
+       desktop --sp-xl (24px) — cramming content to the edge is what made the
+       first mobile pass feel airless. */
+    @media (max-width: 900px) {
+      .hero { padding-top: 56px; padding-bottom: 48px; }
+      .features { padding: 64px 0; }
+      .feature-row { padding: var(--sp-xl) 0; }
+    }
+
+    @media (max-width: 720px) {
+      .hero h1 { font-size: 28px; }
+      .hero-inner { gap: var(--sp-xxl); }
+      .hero-visual { max-width: 420px; }
+      .feature-row, .feature-row:nth-child(even) { flex-direction: column; text-align: left; }
+      .feature-copy { max-width: 100%; }
+      .feature-visual img { width: 200px; height: 200px; }
+      .stats h2 { font-size: var(--fs-lg); }
+    }
+
+    @media (max-width: 560px) {
+      .container,
+      header.nav,
+      .hero,
+      .stats,
+      .disclaimer-strip,
+      footer.site-footer { padding-left: var(--sp-xl); padding-right: var(--sp-xl); }
+      .hero { padding-top: 48px; padding-bottom: 40px; }
+      .hero h1 { font-size: 24px; }
+      .hero p.lead { font-size: var(--fs-body); }
+      .hero-ctas { flex-direction: column; align-items: stretch; }
+      .hero-ctas a { text-align: center; }
+      .hero-visual { max-width: 100%; }
+      .hero-subcards { flex-direction: column; gap: var(--sp-md); margin-top: var(--sp-lg); }
+      .hero-subcards .glass-card { padding: var(--sp-lg); }
+      .market-card-body { padding: var(--sp-lg); }
+      .market-card-bear { padding: var(--sp-lg); }
+      .market-card-name { font-size: var(--fs-lg); }
+      .market-card-change .pct { font-size: var(--fs-h1-compact); }
+      .feature-copy h2 { font-size: var(--fs-xl); }
+      .feature-row { gap: var(--sp-xl); }
+      .stats { padding-top: 56px; padding-bottom: 56px; }
+      .stats-grid { gap: var(--sp-xl); }
+      .stat .num { font-size: var(--fs-h1); }
+      .disclaimer-strip { padding-top: var(--sp-xl); padding-bottom: var(--sp-xl); }
+      .disclaimer-strip .inner { font-size: 11px; }
+      footer.site-footer { padding-top: var(--sp-lg); padding-bottom: var(--sp-xl); gap: var(--sp-lg); }
+      footer.site-footer .foot-links { gap: var(--sp-lg); }
+      .copyright { font-size: 11px; }
+    }
+
+    @media (max-width: 400px) {
+      .container,
+      header.nav,
+      .hero,
+      .stats,
+      .disclaimer-strip,
+      footer.site-footer { padding-left: var(--sp-xxl); padding-right: var(--sp-xxl); }
+      .hero h1 { font-size: 21px; }
+      .feature-visual img { width: 170px; height: 170px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .settle { animation: none; opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <!--
-    ============================================================================
-    Apex landing page — https://bearlyinvested.app/
-    This is currently a minimal placeholder that also serves the required legal
-    links. When the real marketing landing page is built, grow it HERE (hero,
-    screenshots, App Store / Play Store badges, feature sections, etc.). Keep the
-    /privacy and /terms links reachable from the footer — the app, the stores,
-    and Google OAuth all depend on those URLs staying live.
-    ============================================================================
-  -->
+  <header class="nav">
+    <a class="brand" href="/">
+      <img src="assets/logo.png" alt="Bearly Invested" />
+    </a>
+  </header>
+
   <main>
-    <div class="logo">🐻</div>
-    <div class="brand">Bearly <span>Invested</span></div>
-    <p class="tagline">The stock market, explained by a bear.</p>
-    <div class="links">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1 class="settle" style="animation-delay:0.05s;">The stock market, made simple.</h1>
+          <p class="lead settle" style="animation-delay:0.15s;">
+            Bearly Invested turns the market into a daily habit: a 5-question
+            quiz, real S&amp;P 500 data, and a bear who explains it all in
+            plain English. Duolingo, but for the stock market.
+          </p>
+          <div class="hero-ctas settle" style="animation-delay:0.25s;">
+            <a class="btn-primary" href="#download">Get the App</a>
+            <a class="btn-secondary" href="#how-it-works">See How It Works ↓</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="market-card-wrap settle" style="animation-delay:0.35s;">
+            <div class="market-card-body">
+              <div class="market-card-row">
+                <img class="flag" src="assets/us-flag.png" alt="" />
+                <span class="market-card-name">S&amp;P 500</span>
+              </div>
+              <div class="market-card-change">
+                <span class="caret">▲</span>
+                <span class="pct" data-count-decimal="0.82">+0.00%</span>
+              </div>
+              <div class="market-card-caption">Real S&amp;P 500 data, refreshed daily</div>
+              <div class="market-card-caption">Updates after each US market close</div>
+            </div>
+            <div class="market-card-accent"></div>
+            <div class="market-card-bear">
+              <img src="assets/honeypot.png" alt="" />
+              Bear Explains
+              <span class="caret-right">›</span>
+            </div>
+          </div>
+          <div class="hero-subcards settle" style="animation-delay:0.45s;">
+            <div class="glass-card">
+              <svg class="flame-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.963 2.286a.75.75 0 0 0-1.071-.136 9.742 9.742 0 0 0-3.539 6.176 7.547 7.547 0 0 1-1.705-1.715.75.75 0 0 0-1.152-.082A9 9 0 1 0 15.68 4.534a7.46 7.46 0 0 1-2.717-2.248ZM15.75 14.25a3.75 3.75 0 1 1-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 0 1 1.925-3.545 3.75 3.75 0 0 1 3.255 3.717Z" />
+              </svg>
+              <div class="streak-num" data-count="12">0</div>
+              <div class="streak-label">Day Streak</div>
+            </div>
+            <div class="glass-card" id="quiz-result-card">
+              <div class="score-label">Today's Quiz</div>
+              <div class="score">4 / 5 correct</div>
+              <div class="xp">+40 XP earned</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features container" id="how-it-works">
+      <div class="feature-row">
+        <div class="feature-copy">
+          <p class="kicker">Daily habit</p>
+          <h2>A 5-Question Quiz, Every Day</h2>
+          <p>
+            A fresh quiz each day teaches how markets and companies work. Earn
+            XP, build a streak, and level up — the same habit loop that makes
+            language apps work, built for investing instead.
+          </p>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/bear-running.png" alt="Bear mascot running, representing a daily quiz streak" />
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-copy">
+          <p class="kicker">Real market data</p>
+          <h2>Real Companies. Real Numbers.</h2>
+          <p>
+            Every lesson runs on real S&amp;P 500 pricing and company data,
+            refreshed daily — not invented examples. The bear explains what
+            moved and why, in plain English.
+          </p>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/bear-stock-ticker.png" alt="Bear mascot at a stock ticker panel, representing real market data" />
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-copy">
+          <p class="kicker">Built for beginners</p>
+          <h2>Jargon, Explained Instantly</h2>
+          <p>
+            Tap any unfamiliar term for a plain-English explanation. The bear
+            breaks down concepts as you go, so understanding builds naturally.
+          </p>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/bear-coffee.png" alt="Bear mascot relaxing with coffee, representing beginner-friendly explanations" />
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <h2>Join the Cubs Learning the Market, One Quiz at a Time</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="num" data-count="500" data-suffix="+">0</div>
+          <div class="lbl">S&amp;P 500 Companies Tracked</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-count="100" data-suffix="+">0</div>
+          <div class="lbl">Quiz Questions &amp; Growing</div>
+        </div>
+        <div class="stat">
+          <!-- TODO: replace with a real, current metric before this ships publicly -->
+          <div class="num placeholder">—</div>
+          <div class="lbl">More stats coming soon</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="disclaimer-strip" id="faq">
+      <div class="inner">
+        <strong>Not financial advice.</strong> Bearly Invested is an educational app about the stock
+        market. It is not a broker, dealer, or investment adviser, does not execute trades, and does not
+        recommend buying or selling any security. See our <a href="/terms">Terms of Service</a> for details.
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="download">
+    <a class="brand" href="/">
+      <img src="assets/logo.png" alt="Bearly Invested" />
+    </a>
+
+    <nav class="foot-links">
       <a href="/privacy">Privacy Policy</a>
       <a href="/terms">Terms of Service</a>
+      <a href="/delete-account">Delete Account</a>
+    </nav>
+
+    <div class="foot-social">
+      <a href="https://www.youtube.com/channel/UCVS8c4NpQ5JNtwF2M5zH8FQ" target="_blank" rel="noopener noreferrer" aria-label="Bearly Invested on YouTube">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12Z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/bearlyinvestedapp/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Bearly Invested on Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@bearlyinvestedapp" target="_blank" rel="noopener noreferrer" aria-label="Bearly Invested on TikTok">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.1v13.6a2.9 2.9 0 1 1-2.1-2.8v-3.2a6.1 6.1 0 1 0 5.2 6V9.1a7.7 7.7 0 0 0 4.5 1.4V7.4a4.6 4.6 0 0 1-4.5-4.5Z"/></svg>
+      </a>
     </div>
-    <footer>© 2026 Bearly Invested · Available on iOS &amp; Android</footer>
-  </main>
+
+    <div class="foot-divider"></div>
+
+    <div class="copyright">© 2026 Bearly Invested · Not financial advice · Available on iOS &amp; Android</div>
+  </footer>
+
+  <script>
+    // Count-up animation for the hero % change and the stats band — mirrors
+    // the settle-in-place behaviour on the reference site's own load.
+    function animateCount(el, { duration = 1100 } = {}) {
+      const isDecimal = el.hasAttribute('data-count-decimal');
+      const target = parseFloat(el.dataset.countDecimal ?? el.dataset.count ?? '0');
+      const suffix = el.dataset.suffix ?? '';
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+        el.textContent = isDecimal
+          ? (value >= 0 ? '+' : '') + value.toFixed(2) + '%'
+          : Math.round(value).toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // Prevent the browser restoring a mid-page scroll position on reload —
+    // otherwise the stats band can already be in view at "load" and its
+    // count-up fires before the visitor ever scrolls.
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    // Hero counters (the S&P % and the streak day count) sit above the fold
+    // on load, so they animate as part of the hero's own settle-in sequence.
+    document.querySelectorAll('.hero [data-count], .hero [data-count-decimal]')
+      .forEach((el) => setTimeout(() => animateCount(el), 500));
+
+    // Stats band counters are below the fold — they should only animate once
+    // the visitor actually scrolls them into view, not at page load.
+    const statCountEls = document.querySelectorAll('.stats [data-count]');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      statCountEls.forEach((el) => io.observe(el));
+    } else {
+      statCountEls.forEach((el) => animateCount(el));
+    }
+
+    // Confetti burst on the "Today's Quiz" result card — same celebratory
+    // beat as QuizResults in the app, scaled down for a static hero card.
+    function burstConfetti(container) {
+      if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const colors = ['#37b24d', '#38ef7d', '#11998e', '#f08c00', '#216b2e'];
+      const pieceCount = 24;
+      for (let i = 0; i < pieceCount; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti-piece';
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 50 + Math.random() * 70;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance - 20;
+        piece.style.setProperty('--tx', tx + 'px');
+        piece.style.setProperty('--ty', ty + 'px');
+        piece.style.setProperty('--rot', Math.round(Math.random() * 360) + 'deg');
+        piece.style.background = colors[i % colors.length];
+        piece.style.animationDelay = (Math.random() * 120) + 'ms';
+        container.appendChild(piece);
+        piece.addEventListener('animationend', () => piece.remove());
+      }
+    }
+
+    const quizCard = document.getElementById('quiz-result-card');
+    if (quizCard && 'IntersectionObserver' in window) {
+      const confettiIo = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => burstConfetti(quizCard), 300);
+            confettiIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.6 });
+      confettiIo.observe(quizCard);
+    }
+  </script>
 </body>
 </html>
